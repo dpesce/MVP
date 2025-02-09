@@ -107,21 +107,12 @@ fig.update_layout(
     autosize=True,
     showlegend=False,
     plot_bgcolor='white',
-    paper_bgcolor='white'
+    paper_bgcolor='white',
+    margin=dict(l=75,r=25,b=25,t=25)
 )
-
-# title
-annotations = []
-annotations.append(dict(x=0.5, y=1.05, xref='paper', yref='paper',
-                        xanchor='center', yanchor='bottom',
-                        text=title,
-                        font=dict(family='Arial',
-                                  size=30,
-                                  color='rgb(37,37,37)'),
-                        showarrow=False))
-fig.update_layout(annotations=annotations)
 
 # output interactive html plot
 fig.write_html('plots/spectrum.html')
 
 ############################################
+
