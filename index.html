@@ -15,14 +15,13 @@
     <main>
 
         <!-- intro material -->
-
         <p>
             The MVP aims to realize very-long-baseline interferometric (VLBI) observations of (sub)millimeter water megamasers residing in the accretion disks around active galactic nuclei (AGN).  The first stage of the MVP involves identifying which (sub)millimeter transitions exhibit maser activity.  To this end, we have been awarded ALMA time (<a href="http://almascience.org/aq/?project_code=2024.1.00211.S">Project 2024.1.00211.S</a>) to carry out a spectral sweep of the Circinus Galaxy across the full set of ALMA Bands 1-10 (covering a frequency range of ~35-950 GHz).
         </p>
         <p>
             This page provides a current snapshot of the project status.  Some high-level notes:
             <ul>
-                <li>The analyses presented here use the ALMA QA2 data products directly.  I.e., no additional calibration or imaging has yet been carried out.</li>
+                <li>The material presented here uses the ALMA QA2 data products directly.  I.e., no additional calibration or imaging has yet been carried out.</li>
             </ul>
         </p>
 
@@ -30,17 +29,80 @@
         <section>
             <h2>Broadband spectrum of Circinus AGN</h2>
             <p>
-                The interactive plot below shows a continuum-subtracted ALMA spectrum of the central AGN in the Circinus Galaxy.
+                The plot below shows a continuum-subtracted ALMA spectrum of the central AGN in the Circinus Galaxy.
             </p>
             <iframe src="plots/spectrum.html" width="100%" height="500px"></iframe>
+            <br>
+            <p>
+                The spectrum shown here has been extracted from the location corresponding to the brightest continuum point, which we assume to be coincident with the central AGN, and it has been smoothed using a 20 MHz boxcar average.  Note that emission from some species becomes more evident only after integrating over a larger region, but such spatially-extended emission is presumably not associated with the AGN.
+            </p>
         </section>
 
         <!-- Identified species -->
-        <!-- <ul>
-            <li>OH</li>
-            <li>CO</li>
-            <li>Methanol</li>
-        </ul> -->
+        <section>
+            <h2>Identified species</h2>
+            <p>
+                Emitting species that have been identified in the Circinus spectrum thus far are listed here.  When quoting frequencies, we indicate both the rest-frame as well as the redshifted version of the frequency (corresponding to the Circinus Galaxy's redshift of \(z=0.001448\)) as [rest-frame]/<font color="salmon">[redshifted]</font> GHz.
+            </p>
+            <h3>Carbon monoxide (CO)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The primary rotational transition (\(J=1\)-\(0\)) of CO is detected at a frequency of 115.27/<font color="salmon">115.10</font> GHz, as is the same transition of the istopologues <sup>13</sup>CO (110.20/<font color="salmon">110.04</font> GHz) and C<sup>18</sup>O (109.78/<font color="salmon">109.62</font> GHz).  Emission from each of these transitions is spatially extended well outside of the central region of the galaxy.
+            </p>
+            <!-- <subsection-container>
+                <text-container>
+                    <h3>Carbon monoxide (CO)</h3>
+                    <p style="padding: 0px; margin: 0px;">
+                        The primary rotational transition (\(J=1\)-\(0\)) of CO is detected at a frequency of 115.27/<font color="salmon">115.10</font> GHz, as is the same transition of the istopologues <sup>13</sup>CO (110.20/<font color="salmon">110.04</font> GHz) and C<sup>18</sup>O (109.78/<font color="salmon">109.62</font> GHz).  Emission from each of these transitions is spatially extended well outside of the central region of the galaxy.
+                    </p>
+                </text-container>
+                <plot-container>
+                    <iframe src="plots/SED.html" width="100%" height="500px"></iframe>
+                </plot-container>
+            </subsection-container> -->
+            <br>
+            <h3>Formyl radical (HCO<sup>+</sup>)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The primary rotational transition (\(J=1\)-\(0\)) of HCO<sup>+</sup> is detected at a frequency of 89.19/<font color="salmon">89.06</font> GHz.  The same transition of the isotopologue H<sup>13</sup>CO<sup>+</sup> is also detected at a frequency of 86.75/<font color="salmon">86.63</font> GHz.
+            </p>
+            <br>
+            <h3>Hydrogen cyanide (HCN)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The primary rotational transition (\(J=1\)-\(0\)) of HCN is detected at a frequency of 88.63/<font color="salmon">88.50</font> GHz.  The same transition of the isotopologue H<sup>13</sup>CN is also tentatively detected at a frequency of 86.34/<font color="salmon">86.22</font> GHz.
+            </p>
+            <br>
+            <h3>Cyano radical (CN)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The \(N=1\)-\(0\), \(J=3/2\)-\(1/2\) transition of CN is detected at a frequency of 113.49/<font color="salmon">113.33</font> GHz, as is the \(N=1\)-\(0\), \(J=1/2\)-\(1/2\) transition at a frequency of 113.14/<font color="salmon">112.98</font> GHz.
+            </p>
+            <br>
+            <h3>Hydrogen isocyanide (HNC)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The primary rotational transition (\(J=1\)-\(0\)) of HNC is detected at a frequency of 90.66/<font color="salmon">90.53</font> GHz.
+            </p>
+            <br>
+            <h3>Carbon monosulfide (CS)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The first three rotational transitions (\(J=1\)-\(0\), \(J=2\)-\(1\), and \(J=3\)-\(2\)) of CS are detected at frequencies of 48.99/<font color="salmon">48.92</font> GHz, 97.98/<font color="salmon">97.84</font> GHz, and 146.97/<font color="salmon">146.76</font> GHz, respectively.  Emission from each of these transitions is spatially extended well outside of the central region of the galaxy.
+            </p>
+            <br>
+            <h3>Ethynyl (CCH)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The \(N=1\)-\(0\), \(J=3/2\)-\(1/2\) transition of CCH is detected at a frequency of 87.32/<font color="salmon">87.19</font> GHz, as is the \(N=1\)-\(0\), \(J=1/2\)-\(1/2\) transition at a frequency of 87.40/<font color="salmon">87.28</font> GHz.
+            </p>
+            <br>
+            <h3>Formaldehyde (H<sub>2</sub>CO)</h3>
+            <p style="padding: 0px; margin: 0px;">
+                The \(2_{(1,2)}\)-\(1_{(1,1)}\) rotational transition of H<sub>2</sub>CO is detected at a frequency of 140.84/<font color="salmon">140.64</font> GHz.  The \(2_{(0,2)}\)-\(1_{(0,1)}\) and \(2_{(1,1)}\)-\(1_{(1,0)}\) transitions are also tentatively detected at frequencies of 145.60/<font color="salmon">145.39</font> GHz and 150.50/<font color="salmon">150.28</font> GHz, respectively.
+            </p>
+            <br>
+            <h3>Others</h3>
+            <p style="padding: 0px; margin: 0px;">
+                <ul>
+                    <li>There is an absorption line at about 36.99/<font color="salmon">36.94</font> GHz that may be hydroxyl (OH).</li>
+                    <li>There are a number of unidentified lines.</li>
+                </ul>
+            </p>
+        </section>
 
         <!-- SED -->
         <section-container>

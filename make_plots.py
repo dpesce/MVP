@@ -10,7 +10,7 @@ import pandas as pd
 ##################################################
 # inputs
 
-make_spectrum_figure = False
+make_spectrum_figure = True
 make_SED_figure = False
 
 ##################################################
@@ -38,27 +38,25 @@ def boxcar(x,y,window):
 ##################################################
 # spectral lines
 
-speclines = {36.95: 'OH  [?]',
+speclines = {36.94: 'OH [?]',
              48.92: 'CS',
-             87.2: 'CH<sub>3</sub>OH [?]',
-             88.5: 'HCN',
-             89.05: 'HCO<sup>+</sup> [?]',
-             90.55: 'CH<sub>3</sub>OH [?]',
-             93.05: 'CH<sub>3</sub>OH [?]',
-             96.60: 'CH<sub>3</sub>OH [?]',
-             97.80: 'CS',
-             109.6: 'C<sup>18</sup>O',
-             110.0: '<sup>13</sup>CO',
-             113.0: 'CH<sub>3</sub>OH [?]',
-             113.3: 'CN',
-             115.1: 'CO',
-             135.1: 'CH<sub>3</sub>OD [?]',
-             140.6: 'H<sub>2</sub>CO [?]',
-             144.9: 'CH<sub>3</sub>OH [?]',
-             145.4: 'H<sub>2</sub>CO [?]',
-             146.75: 'CS [?]',
-             150.3: 'H<sub>2</sub>CO [?]',
-             150.6: 'SO<sub>2</sub> [?]'
+             86.22: 'H<sup>13</sup>CN',
+             86.63: 'H<sup>13</sup>CO<sup>+</sup>',
+             87.19: 'CCH',
+             87.28: 'CCH',
+             88.50: 'HCN',
+             89.06: 'HCO<sup>+</sup>',
+             90.53: 'HNC',
+             97.84: 'CS',
+             109.62: 'C<sup>18</sup>O',
+             110.04: '<sup>13</sup>CO',
+             112.98: 'CN',
+             113.33: 'CN',
+             115.10: 'CO',
+             140.64: 'H<sub>2</sub>CO',
+             145.39: 'H<sub>2</sub>CO [?]',
+             146.76: 'CS',
+             150.28: 'H<sub>2</sub>CO [?]'
              }
 
 ##################################################
