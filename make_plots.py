@@ -78,9 +78,7 @@ if make_spectrum_figure:
     bands = ['Band1a','Band1b','Band3a','Band3b','Band4a']
     seg_names = ['Band 1','Band 3','Band 4']
     seg_colors = ['red','darkorange','gold']
-
-    field = 'centerfield'
-
+    
     segment_separation = 0.1        # in GHz
     smoothing = 0.02                # in GHz
 
@@ -90,7 +88,7 @@ if make_spectrum_figure:
     nu_individual = list()
     S_individual = list()
     for band in bands:
-        tablename = './data/spectra/spectrum_'+band+'_'+field+'.txt'
+        tablename = './data/spectra/spectrum_'+band+'.txt'
         nu_here, S_here = np.loadtxt(tablename,unpack=True)
         nu_individual.append(nu_here / (1.0e9))
         S_individual.append(S_here * 1000.0)
