@@ -11,7 +11,7 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = False
+make_spectrum_figure = True
 make_SED_figure = False
 
 ##################################################
@@ -81,6 +81,7 @@ if make_spectrum_figure:
     
     segment_separation = 0.1        # in GHz
     smoothing = 0.02                # in GHz
+    thinning = 10
 
     ############################################
     # read in and organize spectra
@@ -133,7 +134,7 @@ if make_spectrum_figure:
             yhere = boxcar(nu_segs[i],S_segs[i],smoothing)
         else:
             yhere = S_segs[i]
-        fig.add_trace(go.Scatter(x=nu_segs[i], y=yhere, mode='lines',
+        fig.add_trace(go.Scatter(x=nu_segs[i][::thinning], y=yhere[::thinning], mode='lines',
             line=dict(color='black', width=2),
             hovertemplate='ν = %{x} GHz<br />S = %{y} mJy',
             connectgaps=True,
@@ -160,7 +161,7 @@ if make_spectrum_figure:
             yhere = boxcar(nu_individual[i],S_individual[i],smoothing)
         else:
             yhere = S_individual[i]
-        fig.add_trace(go.Scatter(x=nu_individual[i], y=yhere, mode='lines', opacity=0.5,
+        fig.add_trace(go.Scatter(x=nu_individual[i][::thinning], y=yhere[::thinning], mode='lines', opacity=0.5,
             line=dict(width=2),
             connectgaps=True,
             hoverinfo='skip',
