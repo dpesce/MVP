@@ -5,28 +5,38 @@ body {
     padding: 0;
     background-color: #121212;
     color: #ffffff;
+    position: relative;
+    z-index: 100;
 }
 
 header {
     background-color: #1e1e1e;
     padding: 20px;
     text-align: center;
+    position: relative;
+    z-index: 100;
 }
 
 h1 {
     margin: 0;
     font-size: 2em;
     color: #00bcd4;
+    position: relative;
+    z-index: 100;
 }
 
 h2 {
     margin: 0;
     color: #00bcd4;
+    position: relative;
+    z-index: 100;
 }
 
 h3 {
     margin: 0;
     color: #8fbc8f;
+    position: relative;
+    z-index: 100;
 }
 
 main {
@@ -36,6 +46,8 @@ main {
     background: #222;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 100;
 }
 
 section {
@@ -43,6 +55,8 @@ section {
     padding: 15px;
     background: #333;
     border-radius: 8px;
+    position: relative;
+    z-index: 100;
 }
 
 section-container {
@@ -51,7 +65,9 @@ section-container {
     margin-bottom: 20px;
     padding: 15px;
     background: #333;
-    border-radius: 8px;;
+    border-radius: 8px;
+    position: relative;
+    z-index: 100;
 }
 
 subsection-container {
@@ -60,25 +76,33 @@ subsection-container {
     margin-bottom: 20px;
     padding: 0px;
     background: #333;
-    border-radius: 8px;;
+    border-radius: 8px;
+    position: relative;
+    z-index: 100;
 }
 
 text-container {
     flex: 1;
     padding: 0px;
     max-width: 100%;
+    position: relative;
+    z-index: 100;
 }
 
 plot-container {
     flex: 1;
     padding: 0px;
     max-width: 100%;
+    position: relative;
+    z-index: 100;
 }
 
 iframe {
     border: none;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 100;
 }
 
 footer {
@@ -87,6 +111,8 @@ footer {
     text-align: center;
     margin-top: 20px;
     font-size: 0.9em;
+    position: relative;
+    z-index: 100;
 }
 
 /* unvisited link */
@@ -107,4 +133,62 @@ a:hover {
 /* selected link */
 a:active {
   color: cyan;
+}
+
+/* Navigation bar */
+.navbar {
+    background-color: #333;
+    overflow: visible;
+    padding: 10px;
+}
+
+/* Navbar links */
+.navbar a, .dropbtn {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Change color on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: #555;
+}
+
+/* Dropdown container */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 200px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: white;
+    padding: 10px 20px;
+    display: block;
+    text-align: left;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change dropdown link color on hover */
+.dropdown-content a:hover {
+    background-color: #555;
 }

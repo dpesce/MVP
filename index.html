@@ -9,9 +9,29 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
+    
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Lines</button>
+            <div class="dropdown-content">
+                <a href="lines/CO.html">CO</a>
+                <a href="lines/HCO.html">HCO<sup>+</sup></a>
+                <a href="lines/HCN.html">HCN</a>
+                <a href="lines/HNC.html">HNC</a>
+                <a href="lines/CN.html">CN</a>
+                <a href="lines/CS.html">CS</a>
+                <a href="lines/CCH.html">CCH</a>
+                <a href="lines/H2CO.html">H<sub>2</sub>CO</a>
+            </div>
+        </div>
+    </div>
+
     <header>
         <h1>Megamaser VLBI Project (MVP)</h1>
     </header>
+
     <main>
 
         <!-- intro material -->
@@ -38,15 +58,15 @@
             </p>
         </section>
 
-        <!-- Identified species -->
+        <!-- identified species -->
         <section>
             <h2>Identified species</h2>
             <p>
-                Emitting species that have been identified in the Circinus spectrum thus far are listed here.  When quoting frequencies, we indicate both the rest-frame as well as the redshifted version of the frequency (corresponding to the Circinus Galaxy's redshift of \(z=0.001448\)) as [rest-frame]/<font color="salmon">[redshifted]</font> GHz.
+                Emitting species that have been identified in the Circinus spectrum thus far are listed here.  When quoting frequencies, we indicate both the rest-frame as well as the redshifted version of the frequency (corresponding to the Circinus Galaxy's redshift of \(z=0.001448\)) as [rest-frame]/<font color="salmon">[redshifted]</font> GHz.  Emission from most of the transitions listed below is spatially extended well outside of the central region of the galaxy.
             </p>
             <h3>Carbon monoxide (CO)</h3>
             <p style="padding: 0px; margin: 0px;">
-                The primary rotational transition (\(J=1\)-\(0\)) of CO is detected at a frequency of 115.27/<font color="salmon">115.10</font> GHz, as is the same transition of the istopologues <sup>13</sup>CO (110.20/<font color="salmon">110.04</font> GHz) and C<sup>18</sup>O (109.78/<font color="salmon">109.62</font> GHz).  Emission from each of these transitions is spatially extended well outside of the central region of the galaxy.
+                The primary rotational transition (\(J=1\)-\(0\)) of CO is detected at a frequency of 115.27/<font color="salmon">115.10</font> GHz, as is the same transition of the istopologues <sup>13</sup>CO (110.20/<font color="salmon">110.04</font> GHz) and C<sup>18</sup>O (109.78/<font color="salmon">109.62</font> GHz).
             </p>
             <!-- <subsection-container>
                 <text-container>
@@ -92,13 +112,14 @@
             <br>
             <h3>Formaldehyde (H<sub>2</sub>CO)</h3>
             <p style="padding: 0px; margin: 0px;">
-                The \(2_{(1,2)}\)-\(1_{(1,1)}\) rotational transition of H<sub>2</sub>CO is detected at a frequency of 140.84/<font color="salmon">140.64</font> GHz.  The \(2_{(0,2)}\)-\(1_{(0,1)}\) and \(2_{(1,1)}\)-\(1_{(1,0)}\) transitions are also tentatively detected at frequencies of 145.60/<font color="salmon">145.39</font> GHz and 150.50/<font color="salmon">150.28</font> GHz, respectively.
+                The \(2_{1,2}\)-\(1_{1,1}\) rotational transition of H<sub>2</sub>CO is detected at a frequency of 140.84/<font color="salmon">140.64</font> GHz.  The \(2_{0,2}\)-\(1_{0,1}\) and \(2_{1,1}\)-\(1_{1,0}\) transitions are also tentatively detected at frequencies of 145.60/<font color="salmon">145.39</font> GHz and 150.50/<font color="salmon">150.28</font> GHz, respectively.
             </p>
             <br>
             <h3>Others</h3>
             <p style="padding: 0px; margin: 0px;">
                 <ul>
                     <li>There is an absorption line at about 36.99/<font color="salmon">36.94</font> GHz that may be hydroxyl (OH).</li>
+                    <li>There is a low-intensity but rather broad emission line at about 135.30/<font color="salmon">135.10</font> GHz that may be the \(4_{1,4}\)-\(3_{1,3}\) rotational transition of thioformaldehyde (H<sub>2</sub>CS).  On closer investigation, it looks as though emission from this line is concentrated in the nucleus and is substantially broader (in linewidth) than the more extended molecular emission.  There are no water lines within ~2 GHz (~4000 km/s) of this frequency; could it be another species producing nuclear emission?</li>
                     <li>There are a number of unidentified lines.</li>
                 </ul>
             </p>
