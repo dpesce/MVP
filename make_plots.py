@@ -11,7 +11,7 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = True
+make_spectrum_figure = False
 make_SED_figure = False
 
 ##################################################
@@ -43,6 +43,7 @@ speclines = {36.94: 'OH [?]',
              48.92: 'CS',
              86.22: 'H<sup>13</sup>CN',
              86.63: 'H<sup>13</sup>CO<sup>+</sup>',
+             86.96: 'HN<sup>13</sup>C [?]',
              87.19: 'CCH',
              87.28: 'CCH',
              88.50: 'HCN',
@@ -58,7 +59,19 @@ speclines = {36.94: 'OH [?]',
              140.64: 'H<sub>2</sub>CO',
              145.39: 'H<sub>2</sub>CO [?]',
              146.76: 'CS',
-             150.28: 'H<sub>2</sub>CO [?]'
+             150.28: 'H<sub>2</sub>CO [?]',
+             165.31: 'CH<sub>3</sub>CN [?]',
+             168.52: 'H<sub>2</sub>S [?]',
+             170.63: 'CH<sub>3</sub>CCH [?]',
+             172.43: 'H<sup>13</sup>CN',
+             173.26: 'H<sup>13</sup>CO<sup>+</sup>',
+             173.93: 'HN<sup>13</sup>C [?]',
+             174.41: 'CCH',
+             174.47: 'CCH',
+             177.00: 'HCN',
+             178.12: 'HCO<sup>+</sup>',
+             181.06: 'HNC',
+             183.05: 'H<sub>2</sub>O'
              }
 
 ##################################################
@@ -75,10 +88,9 @@ if make_spectrum_figure:
     ############################################
     # inputs
 
-    bands = ['Band1a','Band1b','Band3a','Band3b','Band4a']
-    seg_names = ['Band 1','Band 3','Band 4']
-    seg_colors = ['red','darkorange','gold']
-    
+    bands = ['Band1a','Band1b','Band3a','Band3b','Band4a','Band5a']
+    seg_names = ['Band 1','Band 3','Band 4','Band 5']
+        
     segment_separation = 0.1        # in GHz
     smoothing = 0.02                # in GHz
     thinning = 10
@@ -107,8 +119,8 @@ if make_spectrum_figure:
         nu_segs.append(nu[:np.where(ind)[0][0]+1])
         S_segs.append(S[:np.where(ind)[0][0]+1])
         for i in range(ind.sum()-1):
-            nu_segs.append(nu[np.where(ind)[0][0]+1:np.where(ind)[0][1]+1])
-            S_segs.append(S[np.where(ind)[0][0]+1:np.where(ind)[0][1]+1])
+            nu_segs.append(nu[np.where(ind)[0][i]+1:np.where(ind)[0][i+1]+1])
+            S_segs.append(S[np.where(ind)[0][i]+1:np.where(ind)[0][i+1]+1])
         nu_segs.append(nu[np.where(ind)[0][-1]+1:])
         S_segs.append(S[np.where(ind)[0][-1]+1:])
 
@@ -225,7 +237,7 @@ if make_spectrum_figure:
                 ),
             title=dict(text='Flux density (mJy/beam)'),
             autorange=False,
-            range=[-10, 1.10*maxS]
+            range=[-25, 1.10*maxS]
         ),
         yaxis2=dict(
             showgrid=False,
@@ -307,14 +319,14 @@ if make_spectrum_figure:
 # generate SED plot
 
 # continuum info
-freqs = [39.40633132032,46.05395407602,97.89582649825999,107.2456922428,137.6965151531]
-bws = [8.78122053592,7.657156181928,30.72496072362,17.28863737626,26.320344557520002]
-bmajs = [9.5243530273452,3.537628173828,3.03612208366392,1.71604394912736,2.1782915592192]
-bmins = [5.9364953041068,3.01214885711652,2.85134267806992,1.0656483173370002,1.9247877597808802]
-cont_peaks = [1.356348681485666,5.44685388853636,4.990724216951112,24.024687395294844,9.721306480139791]
-cont_peak_errs = [0.001897262229692023,0.012416213403675666,0.012448246141759371,0.0833008904063904,0.04010009159700606]
-alphas = [-0.59252626,-0.42468208,-0.36385986,-0.35234842,-0.3182819]
-alpha_errs = [0.024346706,0.038815476,0.050575197,0.03417288,0.032523334]
+freqs = [39.40633132032,46.05395407602,97.89582649825999,107.2456922428,137.6965151531,175.8468303748]
+bws = [8.78122053592,7.657156181928,30.72496072362,17.28863737626,26.320344557520002,30.65583115346]
+bmajs = [9.5243530273452,3.537628173828,3.03612208366392,1.71604394912736,2.1782915592192,1.06605517864212]
+bmins = [5.9364953041068,3.01214885711652,2.85134267806992,1.0656483173370002,1.9247877597808802,0.75467133522036]
+cont_peaks = [1.356348681485666,5.44685388853636,4.990724216951112,24.024687395294844,9.721306480139791,48.640566657951396]
+cont_peak_errs = [0.001897262229692023,0.012416213403675666,0.012448246141759371,0.0833008904063904,0.04010009159700606,0.1483087247713358]
+alphas = [-0.59252626,-0.42468208,-0.36385986,-0.35234842,-0.3182819,-0.46089062]
+alpha_errs = [0.024346706,0.038815476,0.050575197,0.03417288,0.032523334,0.01516054]
 
 if make_SED_figure:
 
@@ -457,7 +469,16 @@ write_tables = {'OH_36.94GHz': False,
                 'H2CO_140.64GHz': False,
                 'H2CO_145.39GHz': False,
                 'CS_146.76GHz': False,
-                'H2CO_150.28GHz': False
+                'H2CO_150.28GHz': False,
+                'CH3CN_165.31GHz': False,
+                'H2S_168.52GHz': False,
+                'CH3CCH_170.63GHz': False,
+                'H13CN_172.43GHz': False,
+                'H13CO_173.26GHz': False,
+                'CCH_174.41GHz': False,
+                'HCN_177.00GHz': False,
+                'HCO_178.12GHz': False,
+                'HNC_181.06GHz': False
                 }
 
 make_plots = {'OH_36.94GHz': False,
@@ -479,7 +500,16 @@ make_plots = {'OH_36.94GHz': False,
               'H2CO_140.64GHz': False,
               'H2CO_145.39GHz': False,
               'CS_146.76GHz': False,
-              'H2CO_150.28GHz': False
+              'H2CO_150.28GHz': False,
+              'CH3CN_165.31GHz': False,
+              'H2S_168.52GHz': False,
+              'CH3CCH_170.63GHz': False,
+              'H13CN_172.43GHz': False,
+              'H13CO_173.26GHz': False,
+              'CCH_174.41GHz': False,
+              'HCN_177.00GHz': False,
+              'HCO_178.12GHz': False,
+              'HNC_181.06GHz': False
               }
 
 nu0_dict = {'OH_36.94GHz': 36.9944102,
@@ -501,7 +531,16 @@ nu0_dict = {'OH_36.94GHz': 36.9944102,
             'H2CO_140.64GHz': 140.8395197167,
             'H2CO_145.39GHz': 145.602949,
             'CS_146.76GHz': 146.9690287,
-            'H2CO_150.28GHz': 150.498334
+            'H2CO_150.28GHz': 150.498334,
+            'CH3CN_165.31GHz': 165.5563223,
+            'H2S_168.52GHz': 168.7627624,
+            'CH3CCH_170.63GHz': 170.8764101,
+            'H13CN_172.43GHz': 172.6778512,
+            'H13CO_173.26GHz': 173.5067003,
+            'CCH_174.41GHz': 174.6654535,
+            'HCN_177.00GHz': 177.2611115,
+            'HCO_178.12GHz': 178.3750563,
+            'HNC_181.06GHz': 181.324758
             }
 
 rms_ind_start_dict = {'OH_36.94GHz': 120,
@@ -523,7 +562,16 @@ rms_ind_start_dict = {'OH_36.94GHz': 120,
                       'H2CO_140.64GHz': 100,
                       'H2CO_145.39GHz': 100,
                       'CS_146.76GHz': 100,
-                      'H2CO_150.28GHz': 100
+                      'H2CO_150.28GHz': 100,
+                      'CH3CN_165.31GHz': 200,
+                      'H2S_168.52GHz': 200,
+                      'CH3CCH_170.63GHz': 200,
+                      'H13CN_172.43GHz': 200,
+                      'H13CO_173.26GHz': 200,
+                      'CCH_174.41GHz': 200,
+                      'HCN_177.00GHz': 200,
+                      'HCO_178.12GHz': 200,
+                      'HNC_181.06GHz': 200
                       }
 
 xmax_dict = {'OH_36.94GHz': 27,
@@ -545,7 +593,16 @@ xmax_dict = {'OH_36.94GHz': 27,
              'H2CO_140.64GHz': 12,
              'H2CO_145.39GHz': 12,
              'CS_146.76GHz': 20,
-             'H2CO_150.28GHz': 12
+             'H2CO_150.28GHz': 12,
+             'CH3CN_165.31GHz': 15,
+             'H2S_168.52GHz': 15,
+             'CH3CCH_170.63GHz': 15,
+             'H13CN_172.43GHz': 27,
+             'H13CO_173.26GHz': 27,
+             'CCH_174.41GHz': 20,
+             'HCN_177.00GHz': 27,
+             'HCO_178.12GHz': 27,
+             'HNC_181.06GHz': 27
              }
 
 def gaussian(x,A,s,v0,S0):
