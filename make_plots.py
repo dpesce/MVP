@@ -11,7 +11,7 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = False
+make_spectrum_figure = True
 make_SED_figure = False
 
 ##################################################
@@ -82,6 +82,7 @@ speclines = {36.94: 'OH [?]',
 # - sliding scale for boxcar averaging
 # - can we get the toggle effects to be non-interfering?
 # --> may need to use legend for this sort of thing, or check out plotly_relayout / eventdata
+# - add Halpha RRLs
 
 if make_spectrum_figure:
 
@@ -193,6 +194,20 @@ if make_spectrum_figure:
             ),
             secondary_y=False)
 
+    # plot Halpha RRLs
+    N = np.linspace(18.0,100.0,83)
+    nu_RRLs = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
+    for i in range(len(N)):
+        fig.add_trace(go.Scatter(x=[nu_RRLs[i],nu_RRLs[i]], y=[-25, 1.10*maxS], mode='lines', opacity=1.0,
+            line=dict(width=1),
+            connectgaps=True,
+            text='H'+str(int(N[i]))+'α',
+            hoverinfo='text',
+            visible=False,
+            name=''
+            ),
+            secondary_y=False)
+
     # axis properties
     fig.update_layout(
         xaxis=dict(
@@ -267,7 +282,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Reset',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -280,7 +295,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Atmospheric<br />transmission',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys)},
+                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -293,7 +308,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Individual<br />SBs',
                                     method='update',
-                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys)},
+                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -306,7 +321,20 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Line<br />identification',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs)},
+                                          {'annotations': []}])
+                                ]),
+                        ),
+                    dict(
+                        type='buttons',
+                        direction='right',
+                        active=0,
+                        x=1.076,
+                        y=0.60,
+                        buttons=list([
+                                dict(label='Hydrogen<br />RRLs',
+                                    method='update',
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -314,6 +342,7 @@ if make_spectrum_figure:
 
     # output interactive html plot
     fig.write_html('plots/spectrum.html')
+
 ##################################################
 ##################################################
 # generate SED plot
