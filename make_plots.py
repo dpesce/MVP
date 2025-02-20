@@ -11,7 +11,7 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = True
+make_spectrum_figure = False
 make_SED_figure = False
 
 ##################################################
@@ -194,14 +194,25 @@ if make_spectrum_figure:
             ),
             secondary_y=False)
 
-    # plot Halpha RRLs
+    # plot Hydrogen RRLs
     N = np.linspace(18.0,100.0,83)
-    nu_RRLs = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
+    nu_RRLs_alpha = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
     for i in range(len(N)):
-        fig.add_trace(go.Scatter(x=[nu_RRLs[i],nu_RRLs[i]], y=[-25, 1.10*maxS], mode='lines', opacity=1.0,
-            line=dict(width=1),
+        fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
+            line=dict(width=0.5,color='green'),
             connectgaps=True,
             text='H'+str(int(N[i]))+'α',
+            hoverinfo='text',
+            visible=False,
+            name=''
+            ),
+            secondary_y=False)
+    nu_RRLs_beta = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
+    for i in range(len(N)):
+        fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
+            line=dict(width=0.5,color='red', dash='dash'),
+            connectgaps=True,
+            text='H'+str(int(N[i]))+'β',
             hoverinfo='text',
             visible=False,
             name=''
@@ -218,7 +229,7 @@ if make_spectrum_figure:
             linecolor='rgb(204, 204, 204)',
             linewidth=2,
             gridwidth=1,
-            gridcolor='lightgray',
+            gridcolor='rgba(0, 0, 0, 0.1)',
             zerolinewidth=1,
             zerolinecolor='lightgray',
             griddash='dot',
@@ -240,7 +251,7 @@ if make_spectrum_figure:
             linecolor='rgb(204, 204, 204)',
             linewidth=2,
             gridwidth=1,
-            gridcolor='lightgray',
+            gridcolor='rgba(0, 0, 0, 0.1)',
             zerolinewidth=1,
             zerolinecolor='lightgray',
             griddash='dot',
@@ -282,7 +293,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Reset',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -295,7 +306,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Atmospheric<br />transmission',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs)},
+                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -308,7 +319,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Individual<br />SBs',
                                     method='update',
-                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs)},
+                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -321,7 +332,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Line<br />identification',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -334,7 +345,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Hydrogen<br />RRLs',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -420,7 +431,7 @@ if make_SED_figure:
             linecolor='rgb(204, 204, 204)',
             linewidth=2,
             gridwidth=1,
-            gridcolor='lightgray',
+            gridcolor='rgba(0, 0, 0, 0.1)',
             zerolinewidth=1,
             zerolinecolor='lightgray',
             griddash='dot',
@@ -442,7 +453,7 @@ if make_SED_figure:
             linecolor='rgb(204, 204, 204)',
             linewidth=2,
             gridwidth=1,
-            gridcolor='lightgray',
+            gridcolor='rgba(0, 0, 0, 0.1)',
             zerolinewidth=1,
             zerolinecolor='lightgray',
             griddash='dot',
