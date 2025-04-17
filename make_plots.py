@@ -75,6 +75,12 @@ speclines = {36.94: 'OH [?]',
              }
 
 ##################################################
+# Halpha RRLs (from Gordon & Sorochenko)
+
+n_RRLs_alpha = [56,55,54,53,52,51,50,49,48,47,46,45,44,43,42,41,40,39,38,37,36,35,34,33,32,31,30,29,28,27,26,25,24,23,22,21,20,19,18]
+nu_RRLs_alpha = [36.46626,38.47336,40.63050,42.95197,45.45372,48.15360,51.07161,54.23025,57.65483,61.37394,65.41994,69.82956,74.64457,79.91266,85.68839,92.03444,99.02296,106.73736,115.27441,124.74674,135.28604,147.04689,160.21152,174.99582,191.65674,210.50178,231.90094,256.30205,284.25059,316.41544,353.62277,396.90086,447.54030,507.17551,577.89649,662.40420,764.22959,888.04707,1040.13111]
+
+##################################################
 ##################################################
 # generate spectrum plot
 
@@ -82,7 +88,6 @@ speclines = {36.94: 'OH [?]',
 # - sliding scale for boxcar averaging
 # - can we get the toggle effects to be non-interfering?
 # --> may need to use legend for this sort of thing, or check out plotly_relayout / eventdata
-# - add Halpha RRLs
 
 if make_spectrum_figure:
 
@@ -195,56 +200,68 @@ if make_spectrum_figure:
             secondary_y=False)
 
     # plot Hydrogen RRLs
-    N = np.linspace(18.0,100.0,83)
-    nu_RRLs_alpha = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
-    for i in range(len(N)):
+    for i in range(len(n_RRLs_alpha)):
         fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
             line=dict(width=0.5,color='green'),
             connectgaps=True,
-            text='H'+str(int(N[i]))+'α',
-            hoverinfo='text',
-            visible=False,
-            name=''
-            ),
-            secondary_y=False)
-    nu_RRLs_beta = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
-    for i in range(len(N)):
-        fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
-            line=dict(width=0.5,color='red', dash='dash'),
-            connectgaps=True,
-            text='H'+str(int(N[i]))+'β',
+            text='H'+str(int(n_RRLs_alpha[i]))+'α',
             hoverinfo='text',
             visible=False,
             name=''
             ),
             secondary_y=False)
 
-    # plot Helium RRLs
-    N = np.linspace(18.0,100.0,83)
-    nu_RRLs_alpha = (3.284635e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
-    for i in range(len(N)):
-        fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
-            line=dict(width=0.5,color='green'),
-            connectgaps=True,
-            text='He '+str(int(N[i]))+'α',
-            hoverinfo='text',
-            visible=False,
-            name=''
-            ),
-            secondary_y=False)
-    # nu_RRLs_beta = (3.284635e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
-    N = np.linspace(32.0,114.0,83)
-    nu_RRLs_beta = (3.284635e6)*4*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
-    for i in range(len(N)):
-        fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.00*maxS], mode='lines', opacity=0.6,
-            line=dict(width=0.5,color='red', dash='dash'),
-            connectgaps=True,
-            text='HeII '+str(int(N[i]))+'α',
-            hoverinfo='text',
-            visible=False,
-            name=''
-            ),
-            secondary_y=False)
+    # # plot Hydrogen RRLs
+    # N = np.linspace(18.0,100.0,83)
+    # nu_RRLs_alpha = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
+    # for i in range(len(N)):
+    #     fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
+    #         line=dict(width=0.5,color='green'),
+    #         connectgaps=True,
+    #         text='H'+str(int(N[i]))+'α',
+    #         hoverinfo='text',
+    #         visible=False,
+    #         name=''
+    #         ),
+    #         secondary_y=False)
+    # nu_RRLs_beta = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
+    # for i in range(len(N)):
+    #     fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
+    #         line=dict(width=0.5,color='red', dash='dash'),
+    #         connectgaps=True,
+    #         text='H'+str(int(N[i]))+'β',
+    #         hoverinfo='text',
+    #         visible=False,
+    #         name=''
+    #         ),
+    #         secondary_y=False)
+
+    # # plot Helium RRLs
+    # N = np.linspace(18.0,100.0,83)
+    # nu_RRLs_alpha = (3.284635e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
+    # for i in range(len(N)):
+    #     fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
+    #         line=dict(width=0.5,color='green'),
+    #         connectgaps=True,
+    #         text='He '+str(int(N[i]))+'α',
+    #         hoverinfo='text',
+    #         visible=False,
+    #         name=''
+    #         ),
+    #         secondary_y=False)
+    # # nu_RRLs_beta = (3.284635e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
+    # N = np.linspace(32.0,114.0,83)
+    # nu_RRLs_beta = (3.284635e6)*4*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
+    # for i in range(len(N)):
+    #     fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.00*maxS], mode='lines', opacity=0.6,
+    #         line=dict(width=0.5,color='red', dash='dash'),
+    #         connectgaps=True,
+    #         text='HeII '+str(int(N[i]))+'α',
+    #         hoverinfo='text',
+    #         visible=False,
+    #         name=''
+    #         ),
+    #         secondary_y=False)
 
     # axis properties
     fig.update_layout(
@@ -320,7 +337,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Reset',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -333,7 +350,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Atmospheric<br />transmission',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -346,7 +363,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Individual<br />SBs',
                                     method='update',
-                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -359,7 +376,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Line<br />identification',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -372,23 +389,23 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Hydrogen<br />RRLs',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
-                    dict(
-                        type='buttons',
-                        direction='right',
-                        active=0,
-                        x=1.063,
-                        y=0.50,
-                        buttons=list([
-                                dict(label='Helium<br />RRLs',
-                                    method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha)},
-                                          {'annotations': []}])
-                                ]),
-                        ),
+                    # dict(
+                    #     type='buttons',
+                    #     direction='right',
+                    #     active=0,
+                    #     x=1.063,
+                    #     y=0.50,
+                    #     buttons=list([
+                    #             dict(label='Helium<br />RRLs',
+                    #                 method='update',
+                    #                 args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha)},
+                    #                       {'annotations': []}])
+                    #             ]),
+                    #     ),
                     ])
 
     # output interactive html plot
@@ -409,6 +426,9 @@ alphas = [-0.59252626,-0.42468208,-0.36385986,-0.35234842,-0.3182819,-0.46089062
 alpha_errs = [0.024346706,0.038815476,0.050575197,0.03417288,0.032523334,0.01516054,0.041083276,0.020197136]
 
 if make_SED_figure:
+
+    ##################################################
+    # S vs nu
 
     fig = go.Figure()
 
@@ -516,6 +536,119 @@ if make_SED_figure:
 
     # output interactive html plot
     fig.write_html('plots/SED.html')
+
+    ##################################################
+    # nu*S vs nu
+
+    fig = go.Figure()
+
+    for i in range(len(freqs)):
+
+        #######################
+        # SED point + spectral index
+
+        beamsize = np.pi*bmajs[i]*bmins[i]
+
+        x0 = freqs[i]
+        xlo = x0 - (bws[i]/2.0)
+        xhi = x0 + (bws[i]/2.0)
+        xpoly = np.array([xlo,x0,xhi,xhi,x0,xlo,xlo])
+
+        ahi = alphas[i] + alpha_errs[i]
+        alo = alphas[i] - alpha_errs[i]
+
+        y0 = cont_peaks[i]
+        yhi_mid = y0 + cont_peak_errs[i]
+        ylo_mid = y0 - cont_peak_errs[i]
+        yhi_l = yhi_mid*(xlo/x0)**alo
+        yhi_r = yhi_mid*(xhi/x0)**ahi
+        ylo_l = ylo_mid*(xlo/x0)**ahi
+        ylo_r = ylo_mid*(xhi/x0)**alo
+        ypoly = beamsize*np.array([xlo*yhi_l,x0*yhi_mid,xhi*yhi_r,xhi*ylo_r,x0*ylo_mid,xlo*ylo_l,xlo*yhi_l])
+
+        # convert to luminosity density, assuming 4 Mpc distance
+        ypoly *= (1.91e34)
+
+        #######################
+        # hover text
+
+        textstr = ''
+        textstr += 'ν<sub>0</sub> = '+str(np.round(x0,2))+' GHz'
+        textstr += '<br />'
+        textstr += 'BW = '+str(np.round(bws[i],2))+' GHz'
+        textstr += '<br />'
+        textstr += 'beam FWHM = '+str(np.round(bmajs[i],2)) + '×' + str(np.round(bmins[i],2))+' arcsec<sup>2</sup>'
+        textstr += '<br />'
+        textstr += '<br />'
+        textstr += 'S<sub>ν</sub> = '+str(np.round(y0*beamsize,2))+' ± '+str(np.round(cont_peak_errs[i]*beamsize,2))+' mJy/beam'
+        textstr += '<br />'
+        textstr += 'α = '+str(np.round(alphas[i],3))+' ± '+str(np.round(alpha_errs[i],3))
+
+        #######################
+        # add to plot
+
+        fig.add_trace(go.Scatter(x=xpoly, y=ypoly,
+                      fill='toself',
+                      mode='lines',
+                      text=textstr,
+                      hoveron = 'fills',
+                      hoverinfo = 'text'))
+
+    # axis properties
+    fig.update_layout(
+        xaxis=dict(
+            showline=True,
+            showgrid=True,
+            zeroline=True,
+            showticklabels=True,
+            linecolor='rgb(204, 204, 204)',
+            linewidth=2,
+            gridwidth=1,
+            gridcolor='rgba(0, 0, 0, 0.1)',
+            zerolinewidth=1,
+            zerolinecolor='lightgray',
+            griddash='dot',
+            ticks='outside',
+            tickfont=dict(
+                family='Arial',
+                size=12,
+                color='rgb(82, 82, 82)',
+                ),
+            title=dict(text='Frequency (GHz)'),
+            autorange=True,
+            type='log'
+        ),
+        yaxis=dict(
+            showline=True,
+            showgrid=True,
+            zeroline=True,
+            showticklabels=True,
+            linecolor='rgb(204, 204, 204)',
+            linewidth=2,
+            gridwidth=1,
+            gridcolor='rgba(0, 0, 0, 0.1)',
+            zerolinewidth=1,
+            zerolinecolor='lightgray',
+            griddash='dot',
+            ticks='outside',
+            tickfont=dict(
+                family='Arial',
+                size=12,
+                color='rgb(82, 82, 82)',
+                ),
+            title=dict(text='νL<sub>ν</sub> (erg/s)'),
+            autorange=True,
+            type='log'
+        ),
+        autosize=True,
+        showlegend=False,
+        plot_bgcolor='white',
+        paper_bgcolor='white',
+        margin=dict(l=75,r=25,b=25,t=25)
+    )
+
+    # output interactive html plot
+    fig.write_html('plots/SED_nuSnu.html')
 
 ##################################################
 # line cubes
