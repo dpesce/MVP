@@ -201,7 +201,7 @@ if make_spectrum_figure:
 
     # plot Hydrogen RRLs
     for i in range(len(n_RRLs_alpha)):
-        fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
+        fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i]/1.001448,nu_RRLs_alpha[i]/1.001448], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
             line=dict(width=0.5,color='green'),
             connectgaps=True,
             text='H'+str(int(n_RRLs_alpha[i]))+'α',
