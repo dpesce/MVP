@@ -73,10 +73,11 @@ speclines = {36.94: 'OH [?]',
              181.06: 'HNC',
              183.05: 'H<sub>2</sub>O',
              220.06: '<sup>13</sup>CO',
-             225.97: 'SO<sub>2</sub>',
+             225.96: 'CN',
              226.30: 'CN',
              226.55: 'CN',
-             230.20: 'CO'
+             230.20: 'CO',
+             293.49: 'CS'
              }
 
 ##################################################
@@ -696,7 +697,13 @@ write_tables = {'OH_36.94GHz': False,
                 'CCH_174.41GHz': False,
                 'HCN_177.00GHz': False,
                 'HCO_178.12GHz': False,
-                'HNC_181.06GHz': False
+                'HNC_181.06GHz': False,
+                '13CO_220.40GHz': False,
+                'CN_226.30GHz': False,
+                'CN_226.62GHz': False,
+                'CN_226.87GHz': False,
+                'CO_230.54GHz': False,
+                'CS_293.48GHz': False
                 }
 
 make_plots = {'OH_36.94GHz': False,
@@ -727,7 +734,13 @@ make_plots = {'OH_36.94GHz': False,
               'CCH_174.41GHz': False,
               'HCN_177.00GHz': False,
               'HCO_178.12GHz': False,
-              'HNC_181.06GHz': False
+              'HNC_181.06GHz': False,
+              '13CO_220.40GHz': False,
+              'CN_226.30GHz': False,
+              'CN_226.62GHz': False,
+              'CN_226.87GHz': False,
+              'CO_230.54GHz': False,
+              'CS_293.48GHz': False
               }
 
 nu0_dict = {'OH_36.94GHz': 36.9944102,
@@ -758,7 +771,13 @@ nu0_dict = {'OH_36.94GHz': 36.9944102,
             'CCH_174.41GHz': 174.6654535,
             'HCN_177.00GHz': 177.2611115,
             'HCO_178.12GHz': 178.3750563,
-            'HNC_181.06GHz': 181.324758
+            'HNC_181.06GHz': 181.324758,
+            '13CO_220.40GHz': 220.3986842,
+            'CN_226.30GHz': 226.2874185,
+            'CN_226.62GHz': 226.6595584,
+            'CN_226.87GHz': 226.8747813,
+            'CO_230.54GHz': 230.538,
+            'CS_293.48GHz': 293.9120865
             }
 
 rms_ind_start_dict = {'OH_36.94GHz': 120,
@@ -789,7 +808,13 @@ rms_ind_start_dict = {'OH_36.94GHz': 120,
                       'CCH_174.41GHz': 200,
                       'HCN_177.00GHz': 200,
                       'HCO_178.12GHz': 200,
-                      'HNC_181.06GHz': 200
+                      'HNC_181.06GHz': 200,
+                      '13CO_220.40GHz': 600,
+                      'CN_226.30GHz': 100,
+                      'CN_226.62GHz': 190,
+                      'CN_226.87GHz': 290,
+                      'CO_230.54GHz': 600,
+                      'CS_293.48GHz': 135
                       }
 
 xmax_dict = {'OH_36.94GHz': 27,
@@ -820,7 +845,13 @@ xmax_dict = {'OH_36.94GHz': 27,
              'CCH_174.41GHz': 20,
              'HCN_177.00GHz': 27,
              'HCO_178.12GHz': 27,
-             'HNC_181.06GHz': 27
+             'HNC_181.06GHz': 27,
+             '13CO_220.40GHz': 27,
+             'CN_226.30GHz': 5,
+             'CN_226.62GHz': 5,
+             'CN_226.87GHz': 5,
+             'CO_230.54GHz': 27,
+             'CS_293.48GHz': 5
              }
 
 def gaussian(x,A,s,v0,S0):
