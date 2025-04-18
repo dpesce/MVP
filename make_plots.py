@@ -11,7 +11,7 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = True
+make_spectrum_figure = False
 make_SED_figure = False
 
 ##################################################
@@ -71,7 +71,12 @@ speclines = {36.94: 'OH [?]',
              177.00: 'HCN',
              178.12: 'HCO<sup>+</sup>',
              181.06: 'HNC',
-             183.05: 'H<sub>2</sub>O'
+             183.05: 'H<sub>2</sub>O',
+             220.06: '<sup>13</sup>CO',
+             225.97: 'SO<sub>2</sub>',
+             226.30: 'CN',
+             226.55: 'CN',
+             230.20: 'CO'
              }
 
 ##################################################
