@@ -11,7 +11,7 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = False
+make_spectrum_figure = True
 make_SED_figure = False
 
 ##################################################
@@ -100,8 +100,9 @@ if make_spectrum_figure:
     ############################################
     # inputs
 
-    bands = ['Band1a','Band1b','Band3a','Band3b','Band4a','Band5a','Band6a','Band7a']
-    seg_names = ['Band 1','Band 3','Band 4','Band 5','Band 6','Band7']
+    bands = ['Band1a','Band1b','Band3a','Band3b','Band4a','Band5a','Band6a','Band7a','Band10d']
+    # seg_names = ['Band 1','Band 3','Band 4','Band 5','Band 6','Band7','Band10']
+    seg_names = ['Band 1','Band 1','Band 3','Band 3','Band 4','Band 5','Band 6','Band7','Band10']
         
     segment_separation = 0.1        # in GHz
     smoothing = 0.02                # in GHz
@@ -123,18 +124,18 @@ if make_spectrum_figure:
     nu = nu[ind]
     S = S[ind]
 
-    # determine segmentations
-    nu_segs = list()
-    S_segs = list()
-    ind = np.diff(nu) > segment_separation
-    if ind.sum() > 0:
-        nu_segs.append(nu[:np.where(ind)[0][0]+1])
-        S_segs.append(S[:np.where(ind)[0][0]+1])
-        for i in range(ind.sum()-1):
-            nu_segs.append(nu[np.where(ind)[0][i]+1:np.where(ind)[0][i+1]+1])
-            S_segs.append(S[np.where(ind)[0][i]+1:np.where(ind)[0][i+1]+1])
-        nu_segs.append(nu[np.where(ind)[0][-1]+1:])
-        S_segs.append(S[np.where(ind)[0][-1]+1:])
+    # # determine segmentations
+    # nu_segs = list()
+    # S_segs = list()
+    # ind = np.diff(nu) > segment_separation
+    # if ind.sum() > 0:
+    #     nu_segs.append(nu[:np.where(ind)[0][0]+1])
+    #     S_segs.append(S[:np.where(ind)[0][0]+1])
+    #     for i in range(ind.sum()-1):
+    #         nu_segs.append(nu[np.where(ind)[0][i]+1:np.where(ind)[0][i+1]+1])
+    #         S_segs.append(S[np.where(ind)[0][i]+1:np.where(ind)[0][i+1]+1])
+    #     nu_segs.append(nu[np.where(ind)[0][-1]+1:])
+    #     S_segs.append(S[np.where(ind)[0][-1]+1:])
 
     # create dataframe
     df = pd.DataFrame({
@@ -153,12 +154,12 @@ if make_spectrum_figure:
 
     # plot spectra
     maxS = 0.0
-    for i in range(len(nu_segs)):
+    for i in range(len(nu_individual)):
         if smoothing > 0:
-            yhere = boxcar(nu_segs[i],S_segs[i],smoothing)
+            yhere = boxcar(nu_individual[i],S_individual[i],smoothing)
         else:
-            yhere = S_segs[i]
-        fig.add_trace(go.Scatter(x=nu_segs[i][::thinning], y=yhere[::thinning], mode='lines',
+            yhere = S_individual[i]
+        fig.add_trace(go.Scatter(x=nu_individual[i][::thinning], y=yhere[::thinning], mode='lines',
             line=dict(color='black', width=2),
             hovertemplate='ν = %{x} GHz<br />S = %{y} mJy',
             connectgaps=True,
@@ -216,58 +217,6 @@ if make_spectrum_figure:
             name=''
             ),
             secondary_y=False)
-
-    # # plot Hydrogen RRLs
-    # N = np.linspace(18.0,100.0,83)
-    # nu_RRLs_alpha = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
-    # for i in range(len(N)):
-    #     fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
-    #         line=dict(width=0.5,color='green'),
-    #         connectgaps=True,
-    #         text='H'+str(int(N[i]))+'α',
-    #         hoverinfo='text',
-    #         visible=False,
-    #         name=''
-    #         ),
-    #         secondary_y=False)
-    # nu_RRLs_beta = (3.285085e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
-    # for i in range(len(N)):
-    #     fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
-    #         line=dict(width=0.5,color='red', dash='dash'),
-    #         connectgaps=True,
-    #         text='H'+str(int(N[i]))+'β',
-    #         hoverinfo='text',
-    #         visible=False,
-    #         name=''
-    #         ),
-    #         secondary_y=False)
-
-    # # plot Helium RRLs
-    # N = np.linspace(18.0,100.0,83)
-    # nu_RRLs_alpha = (3.284635e6)*((1.0/(N**2.0)) - (1.0/((N+1)**2.0)))
-    # for i in range(len(N)):
-    #     fig.add_trace(go.Scatter(x=[nu_RRLs_alpha[i],nu_RRLs_alpha[i]], y=[-25, 1.10*maxS], mode='lines', opacity=0.6,
-    #         line=dict(width=0.5,color='green'),
-    #         connectgaps=True,
-    #         text='He '+str(int(N[i]))+'α',
-    #         hoverinfo='text',
-    #         visible=False,
-    #         name=''
-    #         ),
-    #         secondary_y=False)
-    # # nu_RRLs_beta = (3.284635e6)*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
-    # N = np.linspace(32.0,114.0,83)
-    # nu_RRLs_beta = (3.284635e6)*4*((1.0/(N**2.0)) - (1.0/((N+2)**2.0)))
-    # for i in range(len(N)):
-    #     fig.add_trace(go.Scatter(x=[nu_RRLs_beta[i],nu_RRLs_beta[i]], y=[-25, 1.00*maxS], mode='lines', opacity=0.6,
-    #         line=dict(width=0.5,color='red', dash='dash'),
-    #         connectgaps=True,
-    #         text='HeII '+str(int(N[i]))+'α',
-    #         hoverinfo='text',
-    #         visible=False,
-    #         name=''
-    #         ),
-    #         secondary_y=False)
 
     # axis properties
     fig.update_layout(
@@ -343,7 +292,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Reset',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_individual) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -356,7 +305,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Atmospheric<br />transmission',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_individual) + [True] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -369,7 +318,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Individual<br />SBs',
                                     method='update',
-                                    args=[{'visible': [False]*len(nu_segs) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [False]*len(nu_individual) + [False] + [True]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -382,7 +331,7 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Line<br />identification',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_individual) + [False] + [False]*len(nu_individual) + [True]*len(keys) + [False]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
@@ -395,23 +344,10 @@ if make_spectrum_figure:
                         buttons=list([
                                 dict(label='Hydrogen<br />RRLs',
                                     method='update',
-                                    args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs_alpha)},
+                                    args=[{'visible': [True]*len(nu_individual) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [True]*len(nu_RRLs_alpha)},
                                           {'annotations': []}])
                                 ]),
                         ),
-                    # dict(
-                    #     type='buttons',
-                    #     direction='right',
-                    #     active=0,
-                    #     x=1.063,
-                    #     y=0.50,
-                    #     buttons=list([
-                    #             dict(label='Helium<br />RRLs',
-                    #                 method='update',
-                    #                 args=[{'visible': [True]*len(nu_segs) + [False] + [False]*len(nu_individual) + [False]*len(keys) + [False]*len(nu_RRLs_alpha) + [False]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha) + [True]*len(nu_RRLs_alpha)},
-                    #                       {'annotations': []}])
-                    #             ]),
-                    #     ),
                     ])
 
     # output interactive html plot
@@ -422,14 +358,14 @@ if make_spectrum_figure:
 # generate SED plot
 
 # continuum info
-freqs = [39.40633132032,46.05395407602,97.89582649825999,107.2456922428,137.6965151531,175.8468303748,227.385949812,289.57195114959995]
-bws = [8.78122053592,7.657156181928,30.72496072362,17.28863737626,26.320344557520002,30.65583115346,33.740131918900005,29.31108826817]
-bmajs = [9.5243530273452,3.537628173828,3.03612208366392,1.71604394912736,2.1782915592192,1.06605517864212,0.353292167186748,0.40894466638571997]
-bmins = [5.9364953041068,3.01214885711652,2.85134267806992,1.0656483173370002,1.9247877597808802,0.75467133522036,0.268724203109748,0.193421989679328]
-cont_peaks = [1.356348681485666,5.44685388853636,4.990724216951112,24.024687395294844,9.721306480139791,48.640566657951396,389.79162073080516,505.81682714413324]
-cont_peak_errs = [0.001897262229692023,0.012416213403675666,0.012448246141759371,0.0833008904063904,0.04010009159700606,0.1483087247713358,0.9442684307967172,1.2472397008455267]
-alphas = [-0.59252626,-0.42468208,-0.36385986,-0.35234842,-0.3182819,-0.46089062,0.28306744,0.16607083]
-alpha_errs = [0.024346706,0.038815476,0.050575197,0.03417288,0.032523334,0.01516054,0.041083276,0.020197136]
+freqs = [39.40633132032,46.05395407602,97.89582649825999,107.2456922428,137.6965151531,175.8468303748,227.385949812,289.57195114959995,836.6200829229]
+bws = [8.78122053592,7.657156181928,30.72496072362,17.28863737626,26.320344557520002,30.65583115346,33.740131918900005,29.31108826817,23.63478421645]
+bmajs = [9.5243530273452,3.537628173828,3.03612208366392,1.71604394912736,2.1782915592192,1.06605517864212,0.353292167186748,0.40894466638571997,0.17088842391966]
+bmins = [5.9364953041068,3.01214885711652,2.85134267806992,1.0656483173370002,1.9247877597808802,0.75467133522036,0.268724203109748,0.193421989679328,0.09173925220968]
+cont_peaks = [1.356348681485666,5.44685388853636,4.990724216951112,24.024687395294844,9.721306480139791,48.640566657951396,389.79162073080516,505.81682714413324,4638.790416269987]
+cont_peak_errs = [0.001897262229692023,0.012416213403675666,0.012448246141759371,0.0833008904063904,0.04010009159700606,0.1483087247713358,0.9442684307967172,1.2472397008455267,490.1062831686887]
+alphas = [-0.59252626,-0.42468208,-0.36385986,-0.35234842,-0.3182819,-0.46089062,0.28306744,0.16607083,0.0]
+alpha_errs = [0.024346706,0.038815476,0.050575197,0.03417288,0.032523334,0.01516054,0.041083276,0.020197136,0.0]
 
 if make_SED_figure:
 
