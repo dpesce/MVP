@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Megamaser VLBI Project (MVP)</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <script id="Plotly-script" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        function sortTable(colIndex) {
+          const table = document.getElementById("data-table");
+          const tbody = table.tBodies[0];
+          const rows = Array.from(tbody.rows);
+
+          const isNumeric = !isNaN(rows[0].cells[colIndex].innerText);
+
+          let ascending = table.getAttribute("data-sort-dir") !== "asc";
+          table.setAttribute("data-sort-dir", ascending ? "asc" : "desc");
+
+          rows.sort((a, b) => {
+            let A = a.cells[colIndex].innerText.trim();
+            let B = b.cells[colIndex].innerText.trim();
+
+            if (isNumeric) {
+              A = parseFloat(A);
+              B = parseFloat(B);
+            }
+
+            return ascending ? (A > B ? 1 : -1) : (A < B ? 1 : -1);
+          });
+
+          rows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
+</head>
+<body>
+    
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="../index.html">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">Thermal lines</button>
+            <div class="dropdown-content">
+                <a href="../lines/CO.html">CO</a>
+                <a href="../lines/HCO.html">HCO<sup>+</sup></a>
+                <a href="../lines/HCN.html">HCN</a>
+                <a href="../lines/HNC.html">HNC</a>
+                <a href="../lines/CN.html">CN</a>
+                <a href="../lines/CS.html">CS</a>
+                <a href="../lines/CCH.html">CCH</a>
+                <a href="../lines/H2CO.html">H<sub>2</sub>CO</a>
+                <a href="../lines/H2S.html">H<sub>2</sub>S</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">Known maser transitions</button>
+            <div class="dropdown-content">
+                <a href="known-transitions-22.html">22 GHz</a>
+                <a href="known-transitions-183.html">183 GHz</a>
+                <a href="known-transitions-321.html">321 GHz</a>
+                <a href="known-transitions-325.html">325 GHz</a>
+                <a href="known-transitions-380.html">380 GHz</a>
+                <a href="known-transitions-other.html">Other</a>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>Megamaser VLBI Project (MVP)</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>The 439 GHz transition</h2>
+            <br>
+            The \(6_{4,3} - 5_{5,0}\) rotational transition of water emits at a rest-frame frequency of 439.15 GHz.  Galaxies known to emit in this transition include:
+            <br>
+            <table class="info-table" id="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable(0)">Source name</span></th>
+                  <th onclick="sortTable(1)">RA (J2000)</span></th>
+                  <th onclick="sortTable(2)">Dec (J2000)</span></th>
+                  <th onclick="sortTable(3)">Redshift</span></th>
+                  <th onclick="sortTable(4)">Facility</span></th>
+                  <th onclick="sortTable(5)">Discovery year</span></th>
+                  <th onclick="sortTable(6)">Discovery reference</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>NGC 3079</td>
+                  <td>10:01:57.927</td>
+                  <td>+55:40:46.93</td>
+                  <td>0.003689</td>
+                  <td>JCMT</td>
+                  <td>2005</td>
+                  <td>*<a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...634L.133H/abstract">Humphreys et al. (2005)</a></td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+            *Tentative detection
+            <br>
+        </section>
+
+    </main>
+    <footer>
+        <p>&copy; 2025 Dom Pesce</p>
+    </footer>
+</body>
+</html>
