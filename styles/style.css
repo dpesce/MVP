@@ -192,3 +192,28 @@ a:active {
 .dropdown-content a:hover {
     background-color: #555;
 }
+
+/* table stuff */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.info-table thead {
+  background-color: #444;
+  color: #fff;
+}
+
+.info-table th, .info-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.info-table tbody tr:hover {
+  background-color: #5b5b5b;
+}
