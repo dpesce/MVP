@@ -11,8 +11,8 @@ from astropy.io import fits
 ##################################################
 # inputs
 
-make_spectrum_figure = True
-make_SED_figure = True
+make_spectrum_figure = False
+make_SED_figure = False
 
 ##################################################
 # boxcar averaging function
@@ -107,7 +107,7 @@ if make_spectrum_figure:
     ############################################
     # inputs
 
-    bands = ['Band1a','Band1b','Band3a','Band3b','Band4a','Band5a','Band6a','Band7a','Band7b','Band8b','Band8c','Band8g','Band9c','Band9j','Band10d','Band10j','Band10j']
+    bands = ['Band1a','Band1b','Band3a','Band3b','Band4a','Band5a','Band6a','Band7a','Band7b','Band8b','Band8c','Band8g','Band9c','Band9j','Band10d','Band10j','Band10n']
     seg_names = ['Band 1','Band 1','Band 3','Band 3','Band 4','Band 5','Band 6','Band7','Band7','Band8','Band8','Band8','Band9','Band9','Band10','Band10','Band10']
     
     segment_separation = 0.1        # in GHz
